@@ -1,0 +1,31 @@
+﻿.about {
+  min-height: 100vh;
+}
+
+.hero {
+  padding: 80px 0 60px !important;
+}
+
+.why {
+  background: var(--card-bg);
+  padding: 60px 0 !important;
+}
+
+.principles {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .principles {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.cta {
+  padding: 80px 0 !important;
+  background: linear-gradient(135deg, rgba(110, 218, 209, 0.1) 0%, rgba(59, 182, 174, 0.05) 100%);
+}
