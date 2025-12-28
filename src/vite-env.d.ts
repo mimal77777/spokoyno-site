@@ -1,4 +1,7 @@
-declare module "*.module.css" {
-  const classes: { [key: string]: string };
-  export default classes;
-}
+﻿/// <reference types="vite/client" />
+
+declare module "*.jpg";
+declare module "*.jpeg";
+declare module "*.png";
+declare module "*.webp";
+declare module "*.svg";
