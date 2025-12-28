@@ -1,5 +1,6 @@
 ﻿import { motion } from "framer-motion"
 import styles from "./Home.module.css"
+import respectPerson from "src/assets/images/respect-person.jpg";
 
 interface HomeProps {
   content: any
@@ -224,6 +225,19 @@ export default function Home({ content }: HomeProps) {
             <div className={styles.founderAvatar} aria-hidden="true" />
             <div>
               <h2 className="mb-2">{content?.founder?.title ?? "Создано с уважением к вашему состоянию"}</h2>
+              <div className={styles.respectBlock}>
+  <img
+    src={respectPerson}
+    alt="Создано с уважением к вашему состоянию"
+    className={styles.respectAvatar}
+  />
+
+  <div className={styles.respectText}>
+    Мы проектировали Spokoyno с вниманием к человеческому состоянию —
+    бережно, без давления и с уважением к личным границам.
+  </div>
+</div>
+
               <p className="mb-3">{content?.founder?.description ?? "Spokoyno помогает навести порядок в мыслях и закрепить полезные привычки — мягко, без давления, в вашем темпе."}</p>
               <div className={styles.cta}>
                 <a className="btn btn-primary" href={content?.common?.botLink} target="_blank" rel="noopener noreferrer">
