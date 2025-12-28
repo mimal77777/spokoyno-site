@@ -432,3 +432,60 @@
   transform: scale(1.03);
 }
 
+
+
+/* === Respect section tweaks === */
+.respectPhoto,
+.respectPhotoWrap,
+.respectCircle,
+.respectImageWrap {
+  /* на случай разных названий классов — правила применятся к тому, что существует */
+}
+
+.respectPhoto img,
+.respectPhotoWrap img,
+.respectCircle img,
+.respectImageWrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 999px;
+  display: block;
+}
+
+/* Поднимаем большое фото как на мобильном (немного “вылезает” вверх) */
+@media (min-width: 768px) {
+  .respectPhoto,
+  .respectPhotoWrap,
+  .respectCircle,
+  .respectImageWrap {
+    transform: translateY(-22px);
+  }
+}
+
+/* Акцентируем первый абзац “Мы проектировали…” */
+.respectLead,
+.respectBadgeText,
+.respectIntro {
+  font-weight: 650;
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(110, 218, 209, 0.32);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 18px;
+  padding: 14px 16px;
+  max-width: 560px;
+  margin: 10px auto 14px;
+}
+
+/* На десктопе “плашку” чуть левее/компактнее */
+@media (min-width: 768px) {
+  .respectLead,
+  .respectBadgeText,
+  .respectIntro {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

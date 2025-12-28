@@ -222,7 +222,8 @@ export default function Home({ content }: HomeProps) {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className={styles.founderAvatar}><img src={respectPerson} alt="Автор Spokoyno" className={styles.founderAvatarImg} loading="lazy" /></div>
+            <div className={styles.founderAvatar}>
+</div>
             <div>
               <h2 className="mb-2">{content?.founder?.title ?? "Создано с уважением к вашему состоянию"}</h2>
               <div className={styles.respectBlock}>
@@ -280,5 +281,7 @@ export default function Home({ content }: HomeProps) {
     </div>
   )
 }
+
+
 
 
