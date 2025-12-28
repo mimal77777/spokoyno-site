@@ -1,6 +1,6 @@
 ﻿import { motion } from "framer-motion"
 import styles from "./Home.module.css"
-import respectPerson from "src/assets/images/respect-person.jpg";
+import respectPerson from "../assets/images/respect-person.jpg";
 
 interface HomeProps {
   content: any
