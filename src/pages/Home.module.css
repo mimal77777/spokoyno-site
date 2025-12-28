@@ -329,7 +329,7 @@
   background-image: url("/author.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: 50% 20%;
+  background-position: 50% 14%;
 
   border: 1px solid rgba(255,255,255,0.6);
   box-shadow: 0 28px 80px rgba(0,0,0,0.12);
@@ -504,4 +504,5 @@
   background-repeat: no-repeat;
   border-radius: 9999px;
 }
+
 
