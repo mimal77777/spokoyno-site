@@ -16,6 +16,7 @@ export const en = {
     title: "Spokoyno",
     subtitle: "Your personal mental health companion",
     description: "Simple practices to relieve anxiety, stress and fatigue. Just 5-10 minutes a day.",
+    badge: "AI assistant for peace of mind"
   },
   
   screenshots: {
@@ -53,6 +54,7 @@ export const en = {
   
   problem: {
     title: "Sound familiar?",
+    kicker: "Why it matters",
     items: [
       "Constant anxiety and fatigue",
       "No time or energy for yourself",
@@ -65,6 +67,7 @@ export const en = {
   
   benefits: {
     title: "Why Spokoyno",
+    kicker: "What you get",
     items: [
       { title: "Simple", description: "No complex jargon. Just what works." },
       { title: "Fast", description: "5-10 minutes a day. Results felt immediately." },
@@ -80,8 +83,9 @@ export const en = {
     kicker: "How it works",
     steps: [
       { number: "1", title: "Open the app", description: "Access the Telegram bot whenever convenient." },
-      { number: "2", title: "Choose a practice", description: "Breathing, meditation, exercises or rituals." },
-      { number: "3", title: "Feel better", description: "Results felt immediately. No magic, just works." },
+      { number: "2", title: "Choose a problem to solve", description: "Betrayal, procrastination, melancholy, loneliness." },
+      { number: "3", title: "Do a practice", description: "Breathing, meditation, exercises or rituals." },
+      { number: "4", title: "Feel better", description: "Results felt immediately. No magic, just works." },
     ],
     detailsTitle: "What's included in practices",
     detailsList: [
