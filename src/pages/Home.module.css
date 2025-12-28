@@ -489,3 +489,14 @@
     margin-right: 0;
   }
 }
+    
+/* === Respect big photo circle (author) === */
+.respectPhoto,
+.respectPhotoWrap,
+.respectCircle,
+.respectImageWrap {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 9999px;
+}
