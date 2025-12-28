@@ -1,4 +1,4 @@
-﻿export const en = {
+export const en = {
   common: {
     cta: "Try it now",
     ctaSecondary: "Learn about Spokoyno",
@@ -57,24 +57,35 @@
     note: "We don't promise perfect matches. We promise a healthy environment and value-based filters.",
   },
   
-    faq: {
+  faq: {
     kicker: "FAQ",
     title: "Frequently asked questions",
     items: [
-      { question: "Is Spokoyno a therapist?", answer: "No. Spokoyno is a Telegram Mini App powered by AI. It’s trained on a large knowledge base in psychology and psychotherapy and developed with support from a Doctor of Medical Sciences and a Professor of Psychotherapy. It offers gentle practices and supportive questions to help you quickly regain clarity and calm — without making medical claims." },
-      { question: "How long does one session take?", answer: "Usually 5–10 minutes. You can also do a quick reset — even 2 minutes can bring a noticeable sense of calm." },
-      { question: "Is it private?", answer: "Yes. We don’t create public profiles and we don’t turn your thoughts into a “social feed”. This is your personal space. You can delete your entire conversation with the AI assistant in your profile." },
-      { question: "Do I need meditation experience?", answer: "No. Everything is intentionally simple: short steps, clear guidance, no complicated practices. Open → do → feel the difference." },
-      { question: "Can I use it if I’m just having a hard day?", answer: "Yes. Spokoyno is made for exactly these moments: fatigue, anxiety, overload, mental noise, and chaos in your head." },
-      { question: "How do I start?", answer: "Tap “Try it” — the Telegram bot will open and you can choose the support you need right away." }
+      {
+        question: "Is Spokoyno a psychologist?",
+        answer: "No. This is a Telegram Mini App based on artificial intelligence, trained on a vast database of psychology and psychotherapy, with support from a Doctor of Medical Sciences and a Professor of Psychotherapy, featuring gentle practices and supportive questions to quickly restore clarity and calm. Without medical promises.",
+      },
+      {
+        question: "How long does one session take?",
+        answer: "Usually 5-10 minutes. It can be shorter — even 2 minutes provide a positive effect and calm.",
+      },
+      {
+        question: "Is it private?",
+        answer: "Yes. We do not create public profiles and do not turn your thoughts into a \"social feed\". This is your personal space. You can delete your entire conversation with the AI assistant in your profile.",
+      },
+      {
+        question: "Do I need meditation experience?",
+        answer: "No. Everything is made as simple as possible: steps are short, instructions are clear, without \"complex practices\". Take it, do it, get the desired result.",
+      },
+      {
+        question: "Can I use it if I just have a hard day?",
+        answer: "Yes. Spokoyno is made for exactly these moments: fatigue, anxiety, overload, chaos in your head.",
+      },
+      {
+        question: "How do I start?",
+        answer: "Click \"Try it\" — the Telegram bot will open, and you can choose the solution you need right away.",
+      }
     ]
-  },
-      { q: "How much time does it take?", a: "5 to 10 minutes a day. Can be less if you're really pressed for time." },
-      { q: "Is this a therapy replacement?", a: "No. Spokoyno is a self-help tool. For serious issues, consult a professional." },
-      { q: "Is my data safe?", a: "Yes. We don't store personal information. Everything stays on your device." },
-      { q: "Why Telegram?", a: "Convenient, private, always at hand. No separate app needed." },
-      { q: "When will the matchmaking service launch?", a: "Currently in development. Subscribe for updates in the bot." },
-    ],
   },
   
   about: {
@@ -95,9 +106,8 @@
   },
   
   footer: {
-    rights: " 2025 Spokoyno. All rights reserved.",
+    rights: "© 2025 Spokoyno. All rights reserved.",
     privacy: "Privacy",
     terms: "Terms",
   },
 }
-
