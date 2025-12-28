@@ -57,10 +57,18 @@
     note: "We don't promise perfect matches. We promise a healthy environment and value-based filters.",
   },
   
-  faq: {
-    title: "FAQ",
+    faq: {
+    kicker: "FAQ",
+    title: "Frequently asked questions",
     items: [
-      { q: "Is it free?", a: "Yes, basic features are free. Premium content coming later." },
+      { question: "Is Spokoyno a therapist?", answer: "No. Spokoyno is a Telegram Mini App powered by AI. It’s trained on a large knowledge base in psychology and psychotherapy and developed with support from a Doctor of Medical Sciences and a Professor of Psychotherapy. It offers gentle practices and supportive questions to help you quickly regain clarity and calm — without making medical claims." },
+      { question: "How long does one session take?", answer: "Usually 5–10 minutes. You can also do a quick reset — even 2 minutes can bring a noticeable sense of calm." },
+      { question: "Is it private?", answer: "Yes. We don’t create public profiles and we don’t turn your thoughts into a “social feed”. This is your personal space. You can delete your entire conversation with the AI assistant in your profile." },
+      { question: "Do I need meditation experience?", answer: "No. Everything is intentionally simple: short steps, clear guidance, no complicated practices. Open → do → feel the difference." },
+      { question: "Can I use it if I’m just having a hard day?", answer: "Yes. Spokoyno is made for exactly these moments: fatigue, anxiety, overload, mental noise, and chaos in your head." },
+      { question: "How do I start?", answer: "Tap “Try it” — the Telegram bot will open and you can choose the support you need right away." }
+    ]
+  },
       { q: "How much time does it take?", a: "5 to 10 minutes a day. Can be less if you're really pressed for time." },
       { q: "Is this a therapy replacement?", a: "No. Spokoyno is a self-help tool. For serious issues, consult a professional." },
       { q: "Is my data safe?", a: "Yes. We don't store personal information. Everything stays on your device." },
@@ -92,3 +100,4 @@
     terms: "Terms",
   },
 }
+
