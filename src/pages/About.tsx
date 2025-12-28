@@ -35,7 +35,7 @@ export default function About({ content }: AboutProps) {
             style={{ maxWidth: "800px", margin: "0 auto" }}
             whileHover={{ y: -8 }}
           >
-            <h2 className="mb-3">Наша миссия</h2>
+            <h2 className="mb-3">{content.about.missionTitle}</h2>
             <p style={{ fontSize: "1.125rem" }}>{content.about.mission}</p>
           </motion.div>
         </div>
@@ -47,7 +47,7 @@ export default function About({ content }: AboutProps) {
             className="text-center mb-3"
             {...fadeInUp}
           >
-            Почему мы существуем
+            {content.about.whyTitle}
           </motion.h2>
           <motion.p 
             className="text-center text-secondary mb-5" 
@@ -66,7 +66,7 @@ export default function About({ content }: AboutProps) {
             className="text-center mb-5"
             {...fadeInUp}
           >
-            Наши принципы
+            {content.about.principlesTitle}
           </motion.h2>
           
           <div className={styles.principles}>
@@ -95,7 +95,7 @@ export default function About({ content }: AboutProps) {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
           >
-            <h2 className="mb-4">Готова попробовать?</h2>
+            <h2 className="mb-4">{content.about.ctaTitle}</h2>
             <motion.a 
               href={content.common.botLink} 
               target="_blank" 

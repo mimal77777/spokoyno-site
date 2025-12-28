@@ -18,6 +18,39 @@ export const en = {
     description: "Simple practices to relieve anxiety, stress and fatigue. Just 5-10 minutes a day.",
   },
   
+  screenshots: {
+    kicker: "App",
+    title: "What Spokoyno looks like",
+    description: "Simple and intuitive interface, designed with care for your comfort",
+    screen1Alt: "Spokoyno main screen",
+    screen1Title: "Main screen",
+    screen1Description: "Start your day with a simple question",
+    screen2Alt: "Situational help",
+    screen2Title: "Choose your situation",
+    screen2Description: "Select what you're feeling right now",
+    screen3Alt: "User profile",
+    screen3Title: "Your profile",
+    screen3Description: "Track your progress and balance",
+    screen4Alt: "State tracker",
+    screen4Title: "Balance tracker",
+    screen4Description: "See how your wellbeing improves",
+    screen5Alt: "Mood music",
+    screen5Title: "Music for mood",
+    screen5Description: "Find the right soundscape"
+  },
+  
+  founder: {
+    title: "Created with respect for your state",
+    respectText: "We designed Spokoyno with attention to the human condition — carefully, without pressure and with respect for personal boundaries.",
+    description: "Spokoyno helps bring order to your thoughts and build healthy habits — gently, without pressure, at your own pace."
+  },
+  
+  finalCta: {
+    title: "Try Spokoyno today",
+    description: "2 minutes — and you'll feel calmer.",
+    button: "Try it now"
+  },
+  
   problem: {
     title: "Sound familiar?",
     items: [
@@ -44,11 +77,22 @@ export const en = {
   
   howItWorks: {
     title: "How it works",
+    kicker: "How it works",
     steps: [
       { number: "1", title: "Open the app", description: "Access the Telegram bot whenever convenient." },
       { number: "2", title: "Choose a practice", description: "Breathing, meditation, exercises or rituals." },
       { number: "3", title: "Feel better", description: "Results felt immediately. No magic, just works." },
     ],
+    detailsTitle: "What's included in practices",
+    detailsList: [
+      "Breathing exercises (from 2 minutes)",
+      "Meditations and visualizations (5-10 minutes)",
+      "Simple physical exercises",
+      "Relaxation rituals",
+      "Audio guidance"
+    ],
+    disclaimer: "* Spokoyno is not a medical service and does not replace professional consultation.",
+    ctaTitle: "Try it right now"
   },
   
   roadmap: {
@@ -90,13 +134,17 @@ export const en = {
   
   about: {
     title: "About Spokoyno",
+    missionTitle: "Our mission",
     mission: "We create a space where women can take care of themselves without stress and overload.",
+    whyTitle: "Why we exist",
     why: "Spokoyno exists because mental health shouldn't be complicated, expensive or inaccessible.",
+    principlesTitle: "Our principles",
     principles: [
       { title: "Simple actions", description: "No esoterics or info-business. Only proven practices." },
       { title: "Real results", description: "What works. No magic promises." },
       { title: "Privacy respect", description: "Your data is your data. Period." },
     ],
+    ctaTitle: "Ready to try?"
   },
   
   legal: {

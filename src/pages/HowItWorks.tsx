@@ -63,52 +63,23 @@ export default function HowItWorks({ content }: HowItWorksProps) {
             {...fadeInUp}
             whileHover={{ y: -8 }}
           >
-            <h2 className="mb-3">Что входит в практики</h2>
+            <h2 className="mb-3">{content.howItWorks.detailsTitle}</h2>
             <ul className={styles.list}>
-              <motion.li
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-              >
-                Дыхательные упражнения (от 2 минут)
-              </motion.li>
-              <motion.li
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-              >
-                Медитации и визуализации (5-10 минут)
-              </motion.li>
-              <motion.li
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-              >
-                Простые физические упражнения
-              </motion.li>
-              <motion.li
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4 }}
-              >
-                Ритуалы для расслабления
-              </motion.li>
-              <motion.li
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5 }}
-              >
-                Аудио-сопровождение
-              </motion.li>
+              {content.howItWorks.detailsList.map((item: string, i: number) => (
+                <motion.li
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                >
+                  {item}
+                </motion.li>
+              ))}
             </ul>
             
             <p className="text-secondary mt-4" style={{ fontSize: "14px" }}>
-              * Spokoyno не является медицинским сервисом и не заменяет консультацию специалиста.
+              {content.howItWorks.disclaimer}
             </p>
           </motion.div>
         </div>
@@ -121,7 +92,7 @@ export default function HowItWorks({ content }: HowItWorksProps) {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
           >
-            <h2 className="mb-4">Попробуй прямо сейчас</h2>
+            <h2 className="mb-4">{content.howItWorks.ctaTitle}</h2>
             <motion.a 
               href={content.common.botLink} 
               target="_blank" 

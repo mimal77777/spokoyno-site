@@ -1,5 +1,6 @@
-﻿import { motion } from "framer-motion"
+import { motion } from "framer-motion"
 import styles from "./Home.module.css"
+import AppScreenshots from "../components/AppScreenshots"
 
 interface HomeProps {
   content: any
@@ -70,49 +71,12 @@ export default function Home({ content }: HomeProps) {
                 </motion.button>
               </motion.div>
             </motion.div>
-
-            {/* VISUAL (свой, без чужих фото) */}
-            <motion.div
-              className={styles.heroVisual}
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.15 }}
-            >
-              <div className={styles.device} aria-label="Spokoyno app preview mockup">
-                <div className={styles.deviceTop}>
-                  <div className={styles.logo}>
-                    <img className={styles.logoImg} src="/brand.svg" alt="Spokoyno" />
-                    <span className={styles.logoText}>SPOKOYNO</span>
-                  </div>
-                  <div className={styles.pill}>{content?.hero?.pill ?? "7 дней бесплатно"}</div>
-                </div>
-
-                <div className={styles.deviceMid}>
-                  <div className={styles.chatCard}>
-                    <div className={styles.chatRow}>
-                      <div className={styles.bubble}>
-                        {content?.hero?.mock1 ?? "Как ты сейчас себя чувствуешь?"}
-                      </div>
-                      <div className={`${styles.bubble} ${styles.bubbleAlt}`}>
-                        {content?.hero?.mock2 ?? "Хочу меньше тревожиться и лучше спать."}
-                      </div>
-                      <div className={styles.bubble}>
-                        {content?.hero?.mock3 ?? "Давай начнём с короткой практики на 2 минуты."}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className={styles.tags}>
-                    {(content?.hero?.tags ?? ["Тревога", "Сон", "Отношения", "Самооценка"]).map((t: string, i: number) => (
-                      <div key={i} className={styles.tag}>{t}</div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
           </div>
         </div>
       </section>
+
+      {/* APP SCREENSHOTS - NEW SECTION */}
+      <AppScreenshots content={content} />
 
       {/* PROBLEM */}
       <section className={styles.problem}>
@@ -211,7 +175,7 @@ export default function Home({ content }: HomeProps) {
         </div>
       </section>
 
-      {/* FOUNDER / TRUST (без фото — нейтральная абстракция) */}
+      {/* FOUNDER / TRUST */}
       <section>
         <div className="container">
           <motion.div
@@ -221,18 +185,16 @@ export default function Home({ content }: HomeProps) {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className={styles.founderAvatar}>
-</div>
+            <div className={styles.founderAvatar}></div>
             <div>
-              <h2 className="mb-2">{content?.founder?.title ?? "Создано с уважением к вашему состоянию"}</h2>
+              <h2 className="mb-2">{content?.founder?.title}</h2>
               <div className={styles.respectBlock}>
-  <div className={styles.respectText}>
-    Мы проектировали Spokoyno с вниманием к человеческому состоянию —
-    бережно, без давления и с уважением к личным границам.
-  </div>
-</div>
+                <div className={styles.respectText}>
+                  {content?.founder?.respectText}
+                </div>
+              </div>
 
-              <p className="mb-3">{content?.founder?.description ?? "Spokoyno помогает навести порядок в мыслях и закрепить полезные привычки — мягко, без давления, в вашем темпе."}</p>
+              <p className="mb-3">{content?.founder?.description}</p>
               <div className={styles.cta}>
                 <a className="btn btn-primary" href={content?.common?.botLink} target="_blank" rel="noopener noreferrer">
                   {content?.common?.cta}
@@ -250,8 +212,8 @@ export default function Home({ content }: HomeProps) {
       <section>
         <div className="container">
           <div className={styles.sectionHeader}>
-            <div className={styles.sectionKicker}>{content?.faq?.kicker ?? "FAQ"}</div>
-            <h2>{content?.faq?.title ?? "Часто задаваемые вопросы"}</h2>
+            <div className={styles.sectionKicker}>{content?.faq?.kicker}</div>
+            <h2>{content?.faq?.title}</h2>
           </div>
 
           <div className={styles.faq}>
@@ -269,10 +231,10 @@ export default function Home({ content }: HomeProps) {
       <section className={styles.finalCta}>
         <div className="container">
           <div className={styles.ctaBox}>
-            <h2 className="mb-2">{content?.finalCta?.title ?? "Попробуйте Spokoyno сегодня"}</h2>
-            <p className="mb-4">{content?.finalCta?.description ?? "2 минуты — и вы почувствуете, как становится спокойнее."}</p>
+            <h2 className="mb-2">{content?.finalCta?.title}</h2>
+            <p className="mb-4">{content?.finalCta?.description}</p>
             <a className="btn btn-primary" href={content?.common?.botLink} target="_blank" rel="noopener noreferrer">
-              {content?.finalCta?.button ?? content?.common?.cta}
+              {content?.finalCta?.button}
             </a>
           </div>
         </div>
@@ -280,9 +242,3 @@ export default function Home({ content }: HomeProps) {
     </div>
   )
 }
-
-
-
-
-
-
