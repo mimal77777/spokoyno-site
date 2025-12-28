@@ -1,4 +1,4 @@
-.header {
+﻿.header {
   position: sticky;
   top: 0;
   background: rgba(248, 255, 254, 0.95);
@@ -96,4 +96,17 @@
     width: 32px;
     height: 32px;
   }
+}
+.logoMark {
+  width: 28px;
+  height: 28px;
+  background-color: var(--primary); /* ЦВЕТ КНОПКИ */
+  -webkit-mask: url("/brand.svg") no-repeat center / contain;
+  mask: url("/brand.svg") no-repeat center / contain;
+  display: inline-block;
+}
+
+.logoText {
+  font-weight: 600;
+  color: var(--primary);
 }

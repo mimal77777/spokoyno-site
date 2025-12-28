@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+﻿import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import styles from "./Header.module.css"
 
@@ -19,8 +19,8 @@ export default function Header({ content, lang, onLangChange }: HeaderProps) {
       <div className="container">
         <div className={styles.inner}>
           <Link to="/" className={styles.logo}>
-            <img src="/brand.svg" alt="Spokoyno" className={styles.logoImg} />
-            <span className="gradient-text">Spokoyno</span>
+            <span className={styles.logoMark} aria-hidden="true" />
+            <span className={styles.logoText}>Spokoyno</span>
           </Link>
           
           <nav className={styles.nav}>
