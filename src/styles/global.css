@@ -161,3 +161,39 @@ section { padding: 72px 0; }
 .mb-3 { margin-bottom: 24px; }
 .mb-4 { margin-bottom: 32px; }
 .mb-5 { margin-bottom: 48px; }
+
+
+/* === Brand watermark background === */
+/* Большой “водяной знак” логотипа: только десктоп, очень тихо */
+@media (min-width: 900px) {
+  body::after {
+    /* если у тебя уже был body::after под зерно — мы не ломаем: watermark будет отдельным псевдо-слоем через background */
+  }
+
+  body::before {
+    /* ничего не меняем — твой фон остается */
+  }
+
+  /* Отдельный слой watermark через fixed div-псевдо элемент: используем html::before, чтобы не конфликтовать */
+  html::before {
+    content: "";
+    position: fixed;
+    inset: -10%;
+    z-index: -1;
+    pointer-events: none;
+
+    /* Лого как маска */
+    background: rgba(110, 218, 209, 0.055); /* ~5.5% от primary */
+    -webkit-mask: url("/brand.svg") no-repeat center / 88vw auto;
+    mask: url("/brand.svg") no-repeat center / 88vw auto;
+
+    filter: blur(10px);
+    opacity: 0.55;
+    transform: rotate(-8deg);
+  }
+}
+
+/* На мобиле watermark отключен */
+@media (max-width: 899px) {
+  html::before { content: none; }
+}
