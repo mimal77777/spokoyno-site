@@ -19,7 +19,7 @@ export default function Header({ content, lang, onLangChange }: HeaderProps) {
       <div className="container">
         <div className={styles.inner}>
           <Link to="/" className={styles.logo}>
-            <img src="/logo.svg" alt="Spokoyno" className={styles.logoImg} />
+            <img src="/brand.svg" alt="Spokoyno" className={styles.logoImg} />
             <span className="gradient-text">Spokoyno</span>
           </Link>
           

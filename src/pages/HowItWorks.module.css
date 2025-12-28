@@ -1,17 +1,18 @@
-﻿.page {
+.page {
   min-height: 100vh;
 }
 
 .hero {
-  padding: 80px 0 60px !important;
+  padding: 100px 0 60px !important;
+  background: linear-gradient(180deg, #E8F8F7 0%, #ffffff 100%);
 }
 
 .steps {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
-  max-width: 900px;
-  margin: 0 auto 60px;
+  gap: 28px;
+  max-width: 1000px;
+  margin: 0 auto 80px;
 }
 
 @media (min-width: 768px) {
@@ -21,22 +22,23 @@
 }
 
 .stepNumber {
-  width: 56px;
-  height: 56px;
+  width: 64px;
+  height: 64px;
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
   color: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 800;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 24px rgba(106, 218, 209, 0.3);
 }
 
 .details {
-  background: var(--card-bg);
-  padding: 60px 0 !important;
+  background: linear-gradient(180deg, #ffffff 0%, #E8F8F7 100%);
+  padding: 80px 0 !important;
 }
 
 .list {
@@ -45,9 +47,10 @@
 }
 
 .list li {
-  padding: 12px 0;
-  padding-left: 32px;
+  padding: 14px 0;
+  padding-left: 36px;
   position: relative;
+  font-size: 1.05rem;
 }
 
 .list li::before {
@@ -56,10 +59,10 @@
   left: 0;
   color: var(--primary);
   font-weight: 800;
-  font-size: 1.25rem;
+  font-size: 1.35rem;
 }
 
 .cta {
-  padding: 80px 0 !important;
-  background: linear-gradient(135deg, rgba(110, 218, 209, 0.1) 0%, rgba(59, 182, 174, 0.05) 100%);
+  padding: 100px 0 !important;
+  background: linear-gradient(180deg, #E8F8F7 0%, #D4F1EE 100%);
 }
