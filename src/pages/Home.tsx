@@ -226,12 +226,6 @@ export default function Home({ content }: HomeProps) {
             <div>
               <h2 className="mb-2">{content?.founder?.title ?? "Создано с уважением к вашему состоянию"}</h2>
               <div className={styles.respectBlock}>
-  <img
-    src={respectPerson}
-    alt="Создано с уважением к вашему состоянию"
-    className={styles.respectAvatar}
-  />
-
   <div className={styles.respectText}>
     Мы проектировали Spokoyno с вниманием к человеческому состоянию —
     бережно, без давления и с уважением к личным границам.
@@ -286,4 +280,5 @@ export default function Home({ content }: HomeProps) {
     </div>
   )
 }
+
 
