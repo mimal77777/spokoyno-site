@@ -1,0 +1,1077 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Spokoyno — Тест тревоги</title>
+    <style>
+      :root {
+        --color-accent: #4dd9c0;
+        --color-accent-light: #e8faf7;
+        --color-bg: #f5f5f5;
+        --color-card: #ffffff;
+        --color-text: #1a1a1a;
+        --color-text-secondary: #888888;
+        --color-border: #eeeeee;
+        --color-warning: #f59e0b;
+        --color-danger: #ef4444;
+        --color-success: #22c55e;
+        --border-radius: 16px;
+        --font: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        background:
+          radial-gradient(circle at top, rgba(77, 217, 192, 0.12), transparent 34%),
+          linear-gradient(180deg, #fbfdfc 0%, var(--color-bg) 100%);
+        color: var(--color-text);
+        font-family: var(--font);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      body {
+        padding: 0;
+      }
+
+      button,
+      input,
+      textarea {
+        font: inherit;
+      }
+
+      .app-shell {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        padding: 24px 0 40px;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 480px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .screen {
+        display: none;
+        min-height: calc(100vh - 64px);
+        position: relative;
+      }
+
+      .screen--active {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .screen-card {
+        position: relative;
+        overflow: hidden;
+        flex: 1;
+      }
+
+      .backdrop-glow {
+        position: absolute;
+        inset: auto -18% -7% -18%;
+        height: 42vh;
+        border-radius: 50% 50% 0 0;
+        background:
+          radial-gradient(circle at center, rgba(77, 217, 192, 0.18) 0%, rgba(77, 217, 192, 0.08) 40%, transparent 76%),
+          radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 52%);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .screen-inner {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100vh - 64px);
+      }
+
+      .hero-block {
+        padding-top: 24px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(77, 217, 192, 0.12);
+        color: #229f89;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .hero-title,
+      .question-title,
+      .result-title,
+      .loading-title {
+        margin: 18px 0 12px;
+        font-size: clamp(34px, 8vw, 46px);
+        line-height: 1.04;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+      }
+
+      .hero-subtitle,
+      .result-copy,
+      .loading-copy {
+        margin: 0;
+        color: var(--color-text-secondary);
+        font-size: 18px;
+        line-height: 1.5;
+      }
+
+      .social-proof {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 18px;
+        background: rgba(255, 255, 255, 0.72);
+        border: 1px solid rgba(77, 217, 192, 0.18);
+        border-radius: calc(var(--border-radius) + 4px);
+        backdrop-filter: blur(8px);
+        box-shadow: 0 12px 28px rgba(26, 26, 26, 0.05);
+      }
+
+      .social-icon,
+      .proof-icon,
+      .lock-icon {
+        width: 22px;
+        height: 22px;
+        color: var(--color-accent);
+        flex-shrink: 0;
+      }
+
+      .hero-visual {
+        margin: 28px 0 18px;
+        padding: 26px 22px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.72));
+        border: 1px solid rgba(77, 217, 192, 0.16);
+        border-radius: 28px;
+        box-shadow: 0 18px 32px rgba(77, 217, 192, 0.08);
+      }
+
+      .hero-visual-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        gap: 14px;
+        align-items: end;
+      }
+
+      .visual-panel {
+        height: 220px;
+        border-radius: 24px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(77, 217, 192, 0.08)),
+          radial-gradient(circle at top, rgba(77, 217, 192, 0.18), rgba(77, 217, 192, 0.02) 66%);
+        border: 1px solid rgba(77, 217, 192, 0.18);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .visual-panel::before {
+        content: "";
+        position: absolute;
+        inset: 18px;
+        border-radius: 18px;
+        background:
+          linear-gradient(180deg, rgba(77, 217, 192, 0.12), rgba(255, 255, 255, 0.9)),
+          repeating-linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.4) 0,
+            rgba(255, 255, 255, 0.4) 12px,
+            rgba(77, 217, 192, 0.08) 12px,
+            rgba(77, 217, 192, 0.08) 24px
+          );
+      }
+
+      .visual-copy {
+        position: absolute;
+        inset: 0;
+        padding: 26px 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .visual-copy strong {
+        max-width: 190px;
+        font-size: 28px;
+        line-height: 1.05;
+        letter-spacing: -0.04em;
+      }
+
+      .visual-copy span {
+        max-width: 200px;
+        font-size: 14px;
+        line-height: 1.45;
+        color: var(--color-text-secondary);
+      }
+
+      .visual-phone {
+        position: relative;
+        height: 190px;
+        border-radius: 28px;
+        background: linear-gradient(180deg, #ffffff, #eefaf8);
+        border: 1px solid rgba(77, 217, 192, 0.2);
+        box-shadow: 0 16px 26px rgba(26, 26, 26, 0.08);
+        overflow: hidden;
+      }
+
+      .visual-phone::before {
+        content: "";
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        width: 36%;
+        height: 5px;
+        transform: translateX(-50%);
+        border-radius: 999px;
+        background: rgba(26, 26, 26, 0.16);
+      }
+
+      .visual-phone::after {
+        content: "";
+        position: absolute;
+        inset: 28px 16px 16px;
+        border-radius: 18px;
+        background:
+          linear-gradient(180deg, rgba(77, 217, 192, 0.18) 0%, rgba(77, 217, 192, 0.04) 100%),
+          repeating-linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.9) 0,
+            rgba(255, 255, 255, 0.9) 12px,
+            rgba(77, 217, 192, 0.12) 12px,
+            rgba(77, 217, 192, 0.12) 24px
+          );
+      }
+
+      .hero-meta {
+        margin-top: auto;
+        padding-bottom: 16px;
+        color: var(--color-text-secondary);
+        font-size: 13px;
+        text-align: center;
+      }
+
+      .cta-button,
+      .answer-btn {
+        width: 100%;
+        border: none;
+        border-radius: var(--border-radius);
+      }
+
+      .cta-button {
+        padding: 18px 22px;
+        background: linear-gradient(135deg, var(--color-accent) 0%, #2fbeaa 100%);
+        color: #ffffff;
+        font-size: 17px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        cursor: pointer;
+        box-shadow: 0 18px 30px rgba(77, 217, 192, 0.26);
+      }
+
+      .cta-button:active {
+        transform: translateY(1px) scale(0.995);
+      }
+
+      .progress-shell {
+        padding-top: 18px;
+      }
+
+      .progress-track {
+        width: 100%;
+        height: 6px;
+        border-radius: 999px;
+        background: rgba(77, 217, 192, 0.18);
+        overflow: hidden;
+      }
+
+      .progress-bar {
+        height: 100%;
+        width: 0;
+        background: var(--color-accent);
+        border-radius: 999px;
+        transition: width 0.3s ease;
+      }
+
+      .question-label {
+        margin-top: 18px;
+        color: var(--color-text-secondary);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .question-title {
+        font-size: clamp(30px, 7.6vw, 42px);
+        margin-top: 14px;
+        margin-bottom: 24px;
+      }
+
+      .answers-list {
+        display: grid;
+        gap: 14px;
+      }
+
+      .answer-btn {
+        padding: 18px 18px 18px 20px;
+        background: rgba(255, 255, 255, 0.86);
+        border: 1.5px solid var(--color-border);
+        border-radius: var(--border-radius);
+        font-size: 16px;
+        line-height: 1.45;
+        text-align: left;
+        color: var(--color-text);
+        cursor: pointer;
+        transition: all 0.15s ease;
+        box-shadow: 0 10px 20px rgba(26, 26, 26, 0.03);
+      }
+
+      .answer-btn:active,
+      .answer-btn:hover {
+        background: var(--color-accent-light);
+        border-color: rgba(77, 217, 192, 0.5);
+      }
+
+      .question-footer-space {
+        flex: 1;
+        min-height: 120px;
+      }
+
+      .loading-wrap {
+        padding-top: 42px;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .loading-title {
+        font-size: clamp(32px, 8vw, 44px);
+      }
+
+      .loading-progress {
+        margin: 28px auto 18px;
+        width: min(100%, 320px);
+      }
+
+      .loading-value {
+        margin-top: 14px;
+        font-size: 42px;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+      }
+
+      .loading-copy {
+        margin-top: 18px;
+        min-height: 54px;
+      }
+
+      .result-scroll {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding-top: 18px;
+        padding-bottom: 28px;
+      }
+
+      .result-card,
+      .insight-card,
+      .locked-card,
+      .overlay-card {
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(77, 217, 192, 0.16);
+        border-radius: 22px;
+        box-shadow: 0 14px 28px rgba(26, 26, 26, 0.05);
+      }
+
+      .result-card {
+        padding: 24px 20px;
+      }
+
+      .result-title {
+        margin: 0 0 20px;
+        font-size: 30px;
+        line-height: 1.08;
+      }
+
+      .score-circle {
+        display: grid;
+        place-items: center;
+        width: 174px;
+        height: 174px;
+        margin: 0 auto 18px;
+        border-radius: 50%;
+        background:
+          radial-gradient(circle at center, #ffffff 58%, transparent 59%),
+          conic-gradient(var(--score-color) calc((var(--score) / 21) * 1turn), rgba(77, 217, 192, 0.16) 0);
+        box-shadow: inset 0 0 0 12px rgba(255, 255, 255, 0.8);
+      }
+
+      .score-value {
+        font-size: 44px;
+        font-weight: 800;
+        letter-spacing: -0.05em;
+      }
+
+      .score-caption {
+        text-align: center;
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--score-color);
+      }
+
+      .metrics {
+        display: grid;
+        gap: 14px;
+        margin-top: 22px;
+      }
+
+      .metric-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+        align-items: end;
+      }
+
+      .metric-name {
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .metric-score {
+        font-size: 14px;
+        color: var(--color-text-secondary);
+      }
+
+      .metric-track {
+        grid-column: 1 / -1;
+        width: 100%;
+        height: 10px;
+        border-radius: 999px;
+        background: rgba(77, 217, 192, 0.14);
+        overflow: hidden;
+      }
+
+      .metric-fill {
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(135deg, var(--color-accent) 0%, #2fbeaa 100%);
+      }
+
+      .insight-card {
+        padding: 22px 20px;
+        background: linear-gradient(180deg, rgba(232, 250, 247, 0.95), rgba(255, 255, 255, 0.96));
+      }
+
+      .insight-heading {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+        font-size: 15px;
+        font-weight: 800;
+      }
+
+      .locked-wrap {
+        position: relative;
+      }
+
+      .locked-card {
+        padding: 22px 20px 84px;
+        filter: blur(6px);
+        pointer-events: none;
+        user-select: none;
+      }
+
+      .locked-lines {
+        display: grid;
+        gap: 12px;
+      }
+
+      .locked-line {
+        height: 16px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, rgba(77, 217, 192, 0.24), rgba(77, 217, 192, 0.08));
+      }
+
+      .locked-line:nth-child(1) {
+        width: 96%;
+      }
+
+      .locked-line:nth-child(2) {
+        width: 82%;
+      }
+
+      .locked-line:nth-child(3) {
+        width: 88%;
+      }
+
+      .locked-line:nth-child(4) {
+        width: 73%;
+      }
+
+      .overlay-card {
+        position: absolute;
+        inset: 50% 14px auto;
+        transform: translateY(-50%);
+        padding: 20px 18px;
+      }
+
+      .overlay-top {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 15px;
+        font-weight: 800;
+        margin-bottom: 10px;
+      }
+
+      .overlay-list {
+        display: grid;
+        gap: 10px;
+        margin: 14px 0 18px;
+        color: var(--color-text-secondary);
+        font-size: 14px;
+      }
+
+      .overlay-list-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .overlay-check {
+        width: 18px;
+        height: 18px;
+        margin-top: 2px;
+        flex-shrink: 0;
+        color: var(--color-accent);
+      }
+
+      .safe-bottom {
+        height: calc(10px + env(safe-area-inset-bottom));
+      }
+
+      @media (max-width: 380px) {
+        .hero-title,
+        .question-title,
+        .result-title,
+        .loading-title {
+          font-size: 30px;
+        }
+
+        .hero-subtitle,
+        .result-copy,
+        .loading-copy {
+          font-size: 16px;
+        }
+
+        .answer-btn {
+          padding: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-shell">
+      <div class="container">
+        <section id="screen-start" class="screen screen--active">
+          <div class="screen-card">
+            <div class="backdrop-glow"></div>
+            <div class="screen-inner hero-block">
+              <div class="eyebrow">
+                <svg class="proof-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                2 минуты и понятный результат
+              </div>
+
+              <h1 class="hero-title" id="start-title"></h1>
+              <p class="hero-subtitle" id="start-subtitle"></p>
+
+              <div class="social-proof">
+                <svg class="social-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path
+                    d="M7.5 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm9 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM2.5 20a5 5 0 0 1 10 0M11.5 20a5 5 0 0 1 10 0"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <div id="social-proof-text"></div>
+              </div>
+
+              <div class="hero-visual">
+                <div class="hero-visual-grid">
+                  <div class="visual-panel">
+                    <div class="visual-copy">
+                      <strong id="hero-visual-title">Твой профиль тревоги</strong>
+                      <span id="hero-visual-subtitle">Краткий результат сразу, полный разбор внутри mini app.</span>
+                    </div>
+                  </div>
+                  <div class="visual-phone" aria-hidden="true"></div>
+                </div>
+              </div>
+
+              <button id="start-button" class="cta-button" type="button"></button>
+              <div id="hero-meta" class="hero-meta"></div>
+              <div class="safe-bottom"></div>
+            </div>
+          </div>
+        </section>
+
+        <div id="question-screens-root"></div>
+
+        <section id="screen-loading" class="screen">
+          <div class="screen-card">
+            <div class="backdrop-glow"></div>
+            <div class="screen-inner loading-wrap">
+              <h2 class="loading-title">Собираем твой профиль</h2>
+              <p class="loading-copy" id="loading-copy"></p>
+
+              <div class="loading-progress">
+                <div class="progress-track">
+                  <div class="progress-bar" id="loading-progress-bar"></div>
+                </div>
+                <div class="loading-value"><span id="loading-percent">0</span>%</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="screen-result" class="screen">
+          <div class="screen-card">
+            <div class="backdrop-glow"></div>
+            <div class="screen-inner">
+              <div class="result-scroll">
+                <section class="result-card" id="result-card">
+                  <h2 class="result-title">Твой профиль тревоги</h2>
+                  <div class="score-circle" id="score-circle" style="--score: 0; --score-color: var(--color-success);">
+                    <div>
+                      <div class="score-value"><span id="result-score">0</span>/21</div>
+                    </div>
+                  </div>
+                  <div class="score-caption" id="result-level-label"></div>
+
+                  <div class="metrics">
+                    <div class="metric-row">
+                      <div class="metric-name">Интенсивность тревоги</div>
+                      <div class="metric-score" id="metric-intensity-score"></div>
+                      <div class="metric-track">
+                        <div class="metric-fill" id="metric-intensity-fill"></div>
+                      </div>
+                    </div>
+
+                    <div class="metric-row">
+                      <div class="metric-name">Влияние на жизнь</div>
+                      <div class="metric-score" id="metric-impact-score"></div>
+                      <div class="metric-track">
+                        <div class="metric-fill" id="metric-impact-fill"></div>
+                      </div>
+                    </div>
+
+                    <div class="metric-row">
+                      <div class="metric-name">Длительность</div>
+                      <div class="metric-score" id="metric-duration-score"></div>
+                      <div class="metric-track">
+                        <div class="metric-fill" id="metric-duration-fill"></div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="insight-card">
+                  <div class="insight-heading">
+                    <svg class="proof-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path
+                        d="M12 3v4m0 10v4m9-9h-4M7 12H3m15.36 6.36-2.83-2.83M8.47 8.47 5.64 5.64m12.72 0-2.83 2.83M8.47 15.53l-2.83 2.83"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                    Краткий инсайт
+                  </div>
+                  <p class="result-copy" id="result-insight"></p>
+                </section>
+
+                <div class="locked-wrap">
+                  <section class="locked-card">
+                    <div class="locked-lines">
+                      <div class="locked-line"></div>
+                      <div class="locked-line"></div>
+                      <div class="locked-line"></div>
+                      <div class="locked-line"></div>
+                    </div>
+                  </section>
+
+                  <section class="overlay-card">
+                    <div class="overlay-top">
+                      <svg class="lock-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path
+                          d="M7 11V8a5 5 0 1 1 10 0v3m-11 0h12a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1Z"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      Полный разбор твоей тревоги
+                    </div>
+
+                    <div class="overlay-list">
+                      <div class="overlay-list-row">
+                        <svg class="overlay-check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="m5 12 5 5L20 7" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        Твой тип тревоги и его причины
+                      </div>
+                      <div class="overlay-list-row">
+                        <svg class="overlay-check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="m5 12 5 5L20 7" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        Конкретные триггеры из твоих ответов
+                      </div>
+                      <div class="overlay-list-row">
+                        <svg class="overlay-check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="m5 12 5 5L20 7" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        Персональный план на 7 дней
+                      </div>
+                      <div class="overlay-list-row">
+                        <svg class="overlay-check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="m5 12 5 5L20 7" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        Техники, которые работают именно для тебя
+                      </div>
+                    </div>
+
+                    <button id="result-cta-button" class="cta-button" type="button">
+                      Получить полный разбор →
+                    </button>
+                  </section>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script>
+      const TEST_CONFIG = {
+        slug: "anxiety",
+        title: "Почему тебе тревожно без причины?",
+        subtitle: "2-минутный тест определит твой тип тревоги и что с этим делать",
+        socialProofCount: "12 847",
+        startButtonLabel: "Пройти тест →",
+        meta: "Бесплатно · Без регистрации · 7 вопросов",
+        heroVisualTitle: "Твой частичный результат",
+        heroVisualSubtitle: "Без регистрации, без переписки, только быстрый вход в суть.",
+        telegramAppUrl: "https://t.me/spokoyno_bot/app",
+        loadingMessages: [
+          "Анализируем твои ответы...",
+          "Определяем тип тревоги...",
+          "Формируем твой профиль...",
+        ],
+        questions: [
+          {
+            id: "q1",
+            text: "Как часто ты просыпаешься с чувством тревоги или напряжения?",
+            answers: [
+              { label: "Почти каждый день", score: 3 },
+              { label: "Несколько раз в неделю", score: 2 },
+              { label: "Иногда", score: 1 },
+              { label: "Редко или никогда", score: 0 },
+            ],
+          },
+          {
+            id: "q2",
+            text: "Есть ли у тебя ситуации, которые стабильно вызывают тревогу?",
+            answers: [
+              { label: "Да, их несколько", score: 3 },
+              { label: "Да, одна основная", score: 2 },
+              { label: "Скорее да", score: 1 },
+              { label: "Нет", score: 0 },
+            ],
+          },
+          {
+            id: "q3",
+            text: "Как тревога влияет на твои решения?",
+            answers: [
+              { label: "Я часто откладываю решения из-за тревоги", score: 3 },
+              { label: "Иногда тревога мешает", score: 2 },
+              { label: "Редко", score: 1 },
+              { label: "Не влияет", score: 0 },
+            ],
+          },
+          {
+            id: "q4",
+            text: "Ты прокручиваешь тревожные мысли по кругу?",
+            answers: [
+              { label: "Да, это сложно остановить", score: 3 },
+              { label: "Иногда", score: 2 },
+              { label: "Редко", score: 1 },
+              { label: "Нет", score: 0 },
+            ],
+          },
+          {
+            id: "q5",
+            text: "Как тревога влияет на твой сон?",
+            answers: [
+              { label: "Сложно заснуть или часто просыпаюсь", score: 3 },
+              { label: "Иногда мешает", score: 2 },
+              { label: "Почти не влияет", score: 1 },
+              { label: "Не влияет", score: 0 },
+            ],
+          },
+          {
+            id: "q6",
+            text: "Ты чувствуешь тревогу в теле? (сердцебиение, напряжение, ком в горле)",
+            answers: [
+              { label: "Да, регулярно", score: 3 },
+              { label: "Иногда", score: 2 },
+              { label: "Редко", score: 1 },
+              { label: "Нет", score: 0 },
+            ],
+          },
+          {
+            id: "q7",
+            text: "Как давно ты живёшь с этим фоновым напряжением?",
+            answers: [
+              { label: "Больше года", score: 3 },
+              { label: "Несколько месяцев", score: 2 },
+              { label: "Недавно появилось", score: 1 },
+              { label: "Это временно, знаю причину", score: 0 },
+            ],
+          },
+        ],
+        levelCopy: {
+          low: {
+            label: "Лёгкий уровень",
+            color: "var(--color-success)",
+            insight:
+              "Тревога у тебя ситуативная и не управляет твоей жизнью. Несколько простых практик помогут тебе сохранить этот баланс.",
+          },
+          medium: {
+            label: "Умеренный уровень",
+            color: "var(--color-warning)",
+            insight:
+              "Тревога присутствует в твоей жизни регулярно и иногда мешает принимать решения. Хорошая новость — при правильном подходе это поддаётся коррекции достаточно быстро.",
+          },
+          high: {
+            label: "Высокий уровень",
+            color: "var(--color-danger)",
+            insight:
+              "Твоя тревога носит хронический характер и уже влияет на качество жизни. Это не слабость — это сигнал, что нервная система перегружена и нуждается в поддержке.",
+          },
+        },
+      };
+
+      const answers = {};
+      let totalScore = 0;
+      let loadingTimer = null;
+      let loadingTextTimer = null;
+
+      function socialProofLabel(count) {
+        return `Уже прошли ${count} человек`;
+      }
+
+      function showScreen(id) {
+        document.querySelectorAll(".screen").forEach((screen) => {
+          screen.classList.toggle("screen--active", screen.id === id);
+        });
+        window.scrollTo({ top: 0, behavior: "instant" });
+      }
+
+      function getTotalScore() {
+        return Object.values(answers).reduce((sum, value) => sum + value, 0);
+      }
+
+      function getLevel(score) {
+        if (score >= 14) return "high";
+        if (score >= 7) return "medium";
+        return "low";
+      }
+
+      function getMetricScores() {
+        const intensity = (answers.q1 || 0) + (answers.q4 || 0) + (answers.q6 || 0);
+        const impact = (answers.q3 || 0) + (answers.q5 || 0);
+        const duration = (answers.q2 || 0) + (answers.q7 || 0);
+
+        return { intensity, impact, duration };
+      }
+
+      function selectAnswer(questionId, score, index) {
+        answers[questionId] = score;
+        totalScore = getTotalScore();
+
+        const nextQuestion = TEST_CONFIG.questions[index + 1];
+        if (nextQuestion) {
+          showScreen(`screen-${nextQuestion.id}`);
+          return;
+        }
+
+        startLoadingSequence();
+      }
+
+      function startLoadingSequence() {
+        showScreen("screen-loading");
+
+        const loadingCopy = document.getElementById("loading-copy");
+        const loadingPercent = document.getElementById("loading-percent");
+        const loadingProgressBar = document.getElementById("loading-progress-bar");
+        const messages = TEST_CONFIG.loadingMessages;
+
+        clearInterval(loadingTimer);
+        clearInterval(loadingTextTimer);
+
+        let percent = 0;
+        let messageIndex = 0;
+
+        loadingCopy.textContent = messages[0];
+        loadingPercent.textContent = "0";
+        loadingProgressBar.style.width = "0%";
+
+        loadingTextTimer = window.setInterval(() => {
+          messageIndex = (messageIndex + 1) % messages.length;
+          loadingCopy.textContent = messages[messageIndex];
+        }, 800);
+
+        loadingTimer = window.setInterval(() => {
+          percent += 4;
+          if (percent > 100) percent = 100;
+
+          loadingPercent.textContent = String(percent);
+          loadingProgressBar.style.width = `${percent}%`;
+
+          if (percent >= 100) {
+            clearInterval(loadingTimer);
+            clearInterval(loadingTextTimer);
+            window.setTimeout(() => {
+              renderResult();
+              showScreen("screen-result");
+            }, 120);
+          }
+        }, 100);
+      }
+
+      function renderQuestionScreens() {
+        const root = document.getElementById("question-screens-root");
+
+        root.innerHTML = TEST_CONFIG.questions
+          .map((question, index) => {
+            const progressPercent = ((index + 1) / TEST_CONFIG.questions.length) * 100;
+
+            return `
+              <section id="screen-${question.id}" class="screen">
+                <div class="screen-card">
+                  <div class="backdrop-glow"></div>
+                  <div class="screen-inner">
+                    <div class="progress-shell">
+                      <div class="progress-track">
+                        <div class="progress-bar" style="width: ${progressPercent}%"></div>
+                      </div>
+                    </div>
+
+                    <div class="question-label">Вопрос ${index + 1} из ${TEST_CONFIG.questions.length}</div>
+                    <h2 class="question-title">${question.text}</h2>
+
+                    <div class="answers-list">
+                      ${question.answers
+                        .map(
+                          (answer) => `
+                            <button
+                              class="answer-btn"
+                              type="button"
+                              onclick="selectAnswer('${question.id}', ${answer.score}, ${index})"
+                            >
+                              ${answer.label}
+                            </button>
+                          `
+                        )
+                        .join("")}
+                    </div>
+
+                    <div class="question-footer-space"></div>
+                  </div>
+                </div>
+              </section>
+            `;
+          })
+          .join("");
+      }
+
+      function renderResult() {
+        const score = getTotalScore();
+        const level = getLevel(score);
+        const levelData = TEST_CONFIG.levelCopy[level];
+        const metricScores = getMetricScores();
+
+        document.getElementById("result-score").textContent = String(score);
+        document.getElementById("result-level-label").textContent = levelData.label;
+        document.getElementById("result-level-label").style.color = levelData.color;
+        document.getElementById("result-insight").textContent = levelData.insight;
+
+        const scoreCircle = document.getElementById("score-circle");
+        scoreCircle.style.setProperty("--score", String(score));
+        scoreCircle.style.setProperty("--score-color", levelData.color);
+
+        document.getElementById("metric-intensity-score").textContent = `${metricScores.intensity}/9`;
+        document.getElementById("metric-impact-score").textContent = `${metricScores.impact}/6`;
+        document.getElementById("metric-duration-score").textContent = `${metricScores.duration}/6`;
+
+        document.getElementById("metric-intensity-fill").style.width = `${(metricScores.intensity / 9) * 100}%`;
+        document.getElementById("metric-impact-fill").style.width = `${(metricScores.impact / 6) * 100}%`;
+        document.getElementById("metric-duration-fill").style.width = `${(metricScores.duration / 6) * 100}%`;
+      }
+
+      function openTelegramCta() {
+        const score = getTotalScore();
+        const level = getLevel(score);
+        const startParam = `${TEST_CONFIG.slug}_${level}_${score}`;
+        const url = `${TEST_CONFIG.telegramAppUrl}?startapp=${encodeURIComponent(startParam)}`;
+        window.open(url, "_blank");
+      }
+
+      function initStartScreen() {
+        document.getElementById("start-title").textContent = TEST_CONFIG.title;
+        document.getElementById("start-subtitle").textContent = TEST_CONFIG.subtitle;
+        document.getElementById("social-proof-text").textContent = socialProofLabel(TEST_CONFIG.socialProofCount);
+        document.getElementById("start-button").textContent = TEST_CONFIG.startButtonLabel;
+        document.getElementById("hero-meta").textContent = TEST_CONFIG.meta;
+        document.getElementById("hero-visual-title").textContent = TEST_CONFIG.heroVisualTitle;
+        document.getElementById("hero-visual-subtitle").textContent = TEST_CONFIG.heroVisualSubtitle;
+
+        document.getElementById("start-button").addEventListener("click", () => {
+          showScreen(`screen-${TEST_CONFIG.questions[0].id}`);
+        });
+
+        document.getElementById("result-cta-button").addEventListener("click", openTelegramCta);
+      }
+
+      renderQuestionScreens();
+      initStartScreen();
+    </script>
+  </body>
+</html>
