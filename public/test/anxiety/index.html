@@ -137,6 +137,11 @@
         line-height: 1.5;
       }
 
+      .insight-text {
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
       .social-proof {
         margin-top: 20px;
         display: flex;
@@ -388,9 +393,9 @@
       .result-scroll {
         display: flex;
         flex-direction: column;
-        gap: 16px;
-        padding-top: 18px;
-        padding-bottom: 28px;
+        gap: 12px;
+        padding-top: 14px;
+        padding-bottom: 18px;
       }
 
       .result-card,
@@ -404,81 +409,97 @@
       }
 
       .result-card {
-        padding: 24px 20px;
+        padding: 20px 16px;
       }
 
       .result-title {
-        margin: 0 0 20px;
-        font-size: 30px;
+        margin: 0 0 14px;
+        font-size: 28px;
         line-height: 1.08;
       }
 
-      .score-circle {
-        display: grid;
-        place-items: center;
-        width: 174px;
-        height: 174px;
-        margin: 0 auto 18px;
-        border-radius: 50%;
-        background:
-          radial-gradient(circle at center, #ffffff 58%, transparent 59%),
-          conic-gradient(var(--score-color) calc((var(--score) / 21) * 1turn), rgba(77, 217, 192, 0.16) 0);
-        box-shadow: inset 0 0 0 12px rgba(255, 255, 255, 0.8);
+      .score-display {
+        margin-bottom: 16px;
+        text-align: center;
       }
 
-      .score-value {
-        font-size: 44px;
+      .score-number {
+        font-size: 72px;
         font-weight: 800;
+        color: var(--color-text);
+        line-height: 1;
         letter-spacing: -0.05em;
       }
 
-      .score-caption {
-        text-align: center;
-        font-size: 16px;
-        font-weight: 700;
-        color: var(--score-color);
+      .score-max {
+        font-size: 36px;
+        font-weight: 400;
+        color: var(--color-text-secondary);
+      }
+
+      .score-label {
+        font-size: 18px;
+        font-weight: 600;
+        margin-top: 8px;
+      }
+
+      .score-label.high {
+        color: var(--color-danger);
+      }
+
+      .score-label.medium {
+        color: var(--color-warning);
+      }
+
+      .score-label.low {
+        color: var(--color-success);
       }
 
       .metrics {
         display: grid;
-        gap: 14px;
-        margin-top: 22px;
+        gap: 10px;
+        margin-bottom: 16px;
       }
 
-      .metric-row {
-        display: grid;
-        grid-template-columns: 1fr auto;
+      .param-row {
+        margin-bottom: 12px;
+      }
+
+      .param-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 6px;
+        font-size: 14px;
         gap: 12px;
-        align-items: end;
       }
 
-      .metric-name {
-        font-size: 14px;
+      .param-name {
+        font-weight: 500;
+        color: var(--color-text);
+      }
+
+      .param-score {
         font-weight: 700;
+        color: var(--color-accent);
       }
 
-      .metric-score {
-        font-size: 14px;
-        color: var(--color-text-secondary);
-      }
-
-      .metric-track {
-        grid-column: 1 / -1;
+      .param-bar-track {
         width: 100%;
-        height: 10px;
-        border-radius: 999px;
-        background: rgba(77, 217, 192, 0.14);
+        height: 6px;
+        background: var(--color-border);
+        border-radius: 3px;
         overflow: hidden;
       }
 
-      .metric-fill {
-        height: 100%;
-        border-radius: inherit;
-        background: linear-gradient(135deg, var(--color-accent) 0%, #2fbeaa 100%);
+      .param-bar-fill {
+        height: 6px;
+        background: var(--color-accent);
+        border-radius: 3px;
+        transition: width 0.8s ease;
       }
 
       .insight-card {
-        padding: 22px 20px;
+        padding: 14px;
         background: linear-gradient(180deg, rgba(232, 250, 247, 0.95), rgba(255, 255, 255, 0.96));
       }
 
@@ -533,7 +554,7 @@
         position: absolute;
         inset: 50% 14px auto;
         transform: translateY(-50%);
-        padding: 20px 18px;
+        padding: 16px;
       }
 
       .overlay-top {
@@ -666,35 +687,39 @@
               <div class="result-scroll">
                 <section class="result-card" id="result-card">
                   <h2 class="result-title">Твой профиль тревоги</h2>
-                  <div class="score-circle" id="score-circle" style="--score: 0; --score-color: var(--color-success);">
-                    <div>
-                      <div class="score-value"><span id="result-score">0</span>/21</div>
-                    </div>
+                  <div class="score-display">
+                    <div class="score-number"><span id="result-score">0</span><span class="score-max">/21</span></div>
+                    <div class="score-label low" id="result-level-label"></div>
                   </div>
-                  <div class="score-caption" id="result-level-label"></div>
 
                   <div class="metrics">
-                    <div class="metric-row">
-                      <div class="metric-name">Интенсивность тревоги</div>
-                      <div class="metric-score" id="metric-intensity-score"></div>
-                      <div class="metric-track">
-                        <div class="metric-fill" id="metric-intensity-fill"></div>
+                    <div class="param-row">
+                      <div class="param-header">
+                        <span class="param-name">Интенсивность тревоги</span>
+                        <span class="param-score" id="metric-intensity-score"></span>
+                      </div>
+                      <div class="param-bar-track">
+                        <div class="param-bar-fill" id="metric-intensity-fill"></div>
                       </div>
                     </div>
 
-                    <div class="metric-row">
-                      <div class="metric-name">Влияние на жизнь</div>
-                      <div class="metric-score" id="metric-impact-score"></div>
-                      <div class="metric-track">
-                        <div class="metric-fill" id="metric-impact-fill"></div>
+                    <div class="param-row">
+                      <div class="param-header">
+                        <span class="param-name">Влияние на жизнь</span>
+                        <span class="param-score" id="metric-impact-score"></span>
+                      </div>
+                      <div class="param-bar-track">
+                        <div class="param-bar-fill" id="metric-impact-fill"></div>
                       </div>
                     </div>
 
-                    <div class="metric-row">
-                      <div class="metric-name">Длительность</div>
-                      <div class="metric-score" id="metric-duration-score"></div>
-                      <div class="metric-track">
-                        <div class="metric-fill" id="metric-duration-fill"></div>
+                    <div class="param-row">
+                      <div class="param-header">
+                        <span class="param-name">Длительность</span>
+                        <span class="param-score" id="metric-duration-score"></span>
+                      </div>
+                      <div class="param-bar-track">
+                        <div class="param-bar-fill" id="metric-duration-fill"></div>
                       </div>
                     </div>
                   </div>
@@ -712,7 +737,7 @@
                     </svg>
                     Краткий инсайт
                   </div>
-                  <p class="result-copy" id="result-insight"></p>
+                  <p class="result-copy insight-text" id="result-insight"></p>
                 </section>
 
                 <div class="locked-wrap">
@@ -1027,15 +1052,12 @@
         const level = getLevel(score);
         const levelData = TEST_CONFIG.levelCopy[level];
         const metricScores = getMetricScores();
+        const levelLabel = document.getElementById("result-level-label");
 
         document.getElementById("result-score").textContent = String(score);
-        document.getElementById("result-level-label").textContent = levelData.label;
-        document.getElementById("result-level-label").style.color = levelData.color;
+        levelLabel.textContent = levelData.label;
+        levelLabel.className = `score-label ${level}`;
         document.getElementById("result-insight").textContent = levelData.insight;
-
-        const scoreCircle = document.getElementById("score-circle");
-        scoreCircle.style.setProperty("--score", String(score));
-        scoreCircle.style.setProperty("--score-color", levelData.color);
 
         document.getElementById("metric-intensity-score").textContent = `${metricScores.intensity}/9`;
         document.getElementById("metric-impact-score").textContent = `${metricScores.impact}/6`;
