@@ -915,6 +915,7 @@
 
       const answers = {};
       let totalScore = 0;
+      const landingSessionId = `landing_${Math.random().toString(36).substring(2)}`;
       let loadingTimer = null;
       let loadingTextTimer = null;
 
@@ -1068,12 +1069,36 @@
         document.getElementById("metric-duration-fill").style.width = `${(metricScores.duration / 6) * 100}%`;
       }
 
-      function openTelegramCta() {
-        const score = getTotalScore();
-        const level = getLevel(score);
+      async function handleCTA(score, level) {
+        try {
+          await fetch("https://backend.spokoyno-api.workers.dev/api/events", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              userId: `anonymous_${landingSessionId}`,
+              sessionId: landingSessionId,
+              eventType: "landing_cta_click",
+              screen: "landing_anxiety",
+              meta: JSON.stringify({
+                score,
+                level,
+                source: "landing_anxiety",
+              }),
+            }),
+          });
+        } catch {
+          // silent fail — не блокировать переход
+        }
+
         const startParam = `${TEST_CONFIG.slug}_${level}_${score}`;
         const url = `${TEST_CONFIG.telegramAppUrl}?startapp=${encodeURIComponent(startParam)}`;
         window.open(url, "_blank");
+      }
+
+      function openTelegramCta() {
+        const score = getTotalScore();
+        const level = getLevel(score);
+        void handleCTA(score, level);
       }
 
       function initStartScreen() {
